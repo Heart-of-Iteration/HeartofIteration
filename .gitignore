@@ -1,0 +1,39 @@
+# --- OS cruft ---
+.DS_Store
+Thumbs.db
+
+# --- Editors / IDEs ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Logs ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Environment / secrets (in case you add any tooling) ---
+.env
+.env.*
+
+# --- Build / cache outputs (if you add a toolchain later) ---
+dist/
+build/
+out/
+.cache/
+.tmp/
+
+# --- Common static-site / JS tool folders (only used if added) ---
+node_modules/
+.next/
+.nuxt/
+.sass-cache/
+.hugo_build.lock
+astro/
+.vercel/
+.netlify/
+
+# --- Tests / coverage (optional, if you add tests) ---
+coverage/
