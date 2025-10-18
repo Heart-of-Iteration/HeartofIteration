@@ -4,45 +4,55 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>HI</title>
-    <style>
-      html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial}
-      main{min-height:100%;display:grid;place-items:center;text-align:center;padding:2rem}
-      h1{font-size:12vmin;margin:0}
-      img{display:block;height:auto}
 
-      /* clickable game icon */
-      .game-link{display:inline-block;text-decoration:none;color:inherit;margin-top:2rem}
-      .game-card{
-        width:min(180px, 40vw);
-        aspect-ratio:1/1;
-        border-radius:16px;
-        overflow:hidden;
-        box-shadow:0 6px 18px rgba(0,0,0,.15);
-        transition:transform .15s ease, box-shadow .15s ease;
-      }
-      .game-card img{width:100%;height:100%;object-fit:cover}
-      .game-title{margin:.6rem 0 0;font-weight:600}
-      .game-link:focus .game-card,
-      .game-link:hover .game-card{
-        transform:translateY(-2px);
-        box-shadow:0 10px 24px rgba(0,0,0,.2);
-      }
-      .game-link:focus{outline:2px solid #0b5fff; outline-offset:6px; border-radius:8px}
-    </style>
+    <!-- Pixel font -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="bg.js" defer></script>
+    <script src="bird.js" defer></script>
+    <script src="tree.js" defer></script>
   </head>
   <body>
-    <main>
-      <div>
-        <h1>HI</h1>
+    <!-- Top-left pixel/fractal title -->
+    <h1 class="pixel-title" aria-label="Hi">HI</h1>
 
-        <!-- Clickable bird icon that opens the game -->
-        <a class="game-link" href="games/ClickBox/index.html">
-          <div class="game-card">
-            <img src="img/bird.jpg" alt="Open ClickBox game">
-          </div>
-          <div class="game-title">ClickBox</div>
-        </a>
+    <!-- Flying Bird -->
+    <div id="flying-bird" tabindex="0" aria-label="Open the game">
+      <!-- … (unchanged SVG) … -->
+    </div>
+    <div class="game-title">ClickBox Game</div>
+
+    <!-- Tree (visual, behind ground) -->
+    <div id="central-tree">
+      <!-- SVG injected by tree.js -->
+      <div class="games-dropdown">
+        <div class="dropdown-content" role="menu" aria-label="Games">
+          <a href="games/ClickBox/index.html" class="game-option" role="menuitem">
+            <span class="game-icon">🎮</span>
+            <span class="game-info"><strong>ClickBox</strong><small>Test your clicking speed</small></span>
+          </a>
+          <a href="games/Puzzle/index.html" class="game-option" role="menuitem">
+            <span class="game-icon">🧩</span>
+            <span class="game-info"><strong>Color Puzzle</strong><small>Match the colors</small></span>
+          </a>
+          <a href="games/Jump/index.html" class="game-option" role="menuitem">
+            <span class="game-icon">🦘</span>
+            <span class="game-info"><strong>Jump Quest</strong><small>Platform adventure</small></span>
+          </a>
+          <a href="games/Memory/index.html" class="game-option" role="menuitem">
+            <span class="game-icon">🧠</span>
+            <span class="game-info"><strong>Memory Match</strong><small>Find the pairs</small></span>
+          </a>
+        </div>
       </div>
+    </div>
+
+    <!-- UI overlay for trigger + dropdown -->
+    <div id="tree-ui"></div>
+
+    <main>
+      <!-- keep main for layout spacing if you want, but no centered H1 anymore -->
     </main>
   </body>
 </html>
