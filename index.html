@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>HI</title>
     <style>
-      html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto}
+      html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial}
       main{min-height:100%;display:grid;place-items:center;text-align:center;padding:2rem}
       img{max-width:320px;height:auto;display:block;margin:1rem auto}
       h1{font-size:12vmin;margin:0}
+
+      /* Game embed */
       .game-wrap{max-width:960px;width:100%;margin:2rem auto 0}
-      .ratio{position:relative;width:100%;padding-top:56.25%}
+      .ratio{position:relative;width:100%;padding-top:56.25%} /* 16:9 */
       .ratio>iframe{position:absolute;inset:0;border:0;width:100%;height:100%}
       .game-actions{margin-top:.5rem}
+      .game-actions a{text-decoration:none}
     </style>
   </head>
   <body>
@@ -20,17 +23,19 @@
       <div>
         <h1>HI</h1>
         <img src="img/bird.jpg" alt="A bird">
+
+        <!-- Godot game -->
         <div class="game-wrap">
           <div class="ratio">
             <iframe
               src="games/ClickBox/index.html"
-              title="My Godot game"
+              title="ClickBox"
               allow="autoplay; fullscreen"
               loading="lazy">
             </iframe>
           </div>
           <p class="game-actions">
-            <a href="games/ClickBox/index.html" target="_blank" rel="noopener">Open in full screen ↗</a>
+            <a href="games/ClickBox/index.html" target="_blank" rel="noopener">Open full screen ↗</a>
           </p>
           <noscript>This game needs JavaScript enabled.</noscript>
         </div>
