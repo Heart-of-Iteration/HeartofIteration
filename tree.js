@@ -1,12 +1,12 @@
-// Pythagorean Tree rendered in SVG (visual only layer)
+// SVG Pythagoras Tree (visual only) + UI overlay trigger
 document.addEventListener('DOMContentLoaded', () => {
   const treeContainer = document.getElementById('central-tree');
 
-  // Layout
+  // Layout sizes must match CSS (#tree-svg and #tree-ui)
   const svgWidth  = 1000;
   const svgHeight = 650;
   const centerX   = svgWidth / 2;
-  const baseY     = svgHeight;
+  const baseY     = svgHeight - 42;        // bottom
   const baseSize  = 120;
   const maxDepth  = 9;
   const angleRad  = 40 * Math.PI / 180;
@@ -22,11 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
   svg.setAttribute('aria-hidden', 'true');
   treeContainer.appendChild(svg);
 
+  // Root group at tree base
   const root = document.createElementNS(SVG_NS, 'g');
   root.setAttribute('transform', `translate(${centerX}, ${baseY})`);
   svg.appendChild(root);
 
-  function makeSquare(parent, size, depth) {
+  // Create one centered square
+  const makeSquare = (parent, size, depth) => {
     const rect = document.createElementNS(SVG_NS, 'rect');
     rect.setAttribute('x', (-size / 2).toString());
     rect.setAttribute('y', (-size).toString());
@@ -36,8 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightness = 30 + depth * 6;
     rect.setAttribute('fill', `hsl(${hue}, 60%, ${lightness}%)`);
     parent.appendChild(rect);
-  }
+  };
 
+  // Recursive branches
   function drawBranch(parent, size, depth) {
     makeSquare(parent, size, depth);
     if (depth >= maxDepth) return;
@@ -55,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   drawBranch(root, baseSize, 0);
 
-  // --- UI overlay: trigger + dropdown ABOVE ground ---
+  // --- UI overlay: base-square trigger + dropdown (above ground) ---
   const uiOverlay = document.getElementById('tree-ui');
 
   function createGamesTrigger() {
@@ -92,10 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // IMPORTANT: don't block link clicks inside the dropdown
     trigger.addEventListener('click', (e) => {
       const inDropdown = e.target.closest('.games-dropdown');
-      if (inDropdown) {
-        // Let anchors navigate normally
-        return;
-      }
+      if (inDropdown) return;           // let anchors navigate normally
       e.preventDefault();
       toggleOpen();
     });

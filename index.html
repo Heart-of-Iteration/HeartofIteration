@@ -9,8 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css" />
+
+    <!-- Scripts -->
     <script src="bg.js" defer></script>
-    <script src="bird.js" defer></script>
+    <script src="bird.js" defer></script>  <!-- keep your existing bird.js or a simple mover -->
     <script src="tree.js" defer></script>
   </head>
   <body>
@@ -19,40 +21,62 @@
 
     <!-- Flying Bird -->
     <div id="flying-bird" tabindex="0" aria-label="Open the game">
-      <!-- … (unchanged SVG) … -->
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M30 50 C30 35, 50 30, 65 40 C80 50, 75 65, 65 70 C55 75, 35 75, 30 60 C25 45, 30 50, 30 50 Z" fill="#ff6b6b"/>
+        <path d="M40 55 C35 50, 30 45, 35 40 C40 35, 45 40, 50 45 C55 50, 50 55, 45 57 C42 58, 40 57, 40 55 Z" fill="#ff8e8e"/>
+        <circle cx="65" cy="45" r="12" fill="#ff6b6b"/>
+        <circle cx="68" cy="43" r="3" fill="#2c3e50"/>
+        <circle cx="69" cy="42" r="1" fill="white"/>
+        <path d="M75 45 L80 43 L80 47 Z" fill="#ffd93d"/>
+        <path d="M25 55 L15 50 L25 45" stroke="#ff8e8e" stroke-width="3" fill="none"/>
+        <path d="M25 58 L12 55 L25 52" stroke="#ff8e8e" stroke-width="3" fill="none"/>
+        <path d="M35 48 L38 46" stroke="#ff8e8e" stroke-width="1.5" fill="none"/>
+        <path d="M55 52 L58 50" stroke="#ff8e8e" stroke-width="1.5" fill="none"/>
+      </svg>
     </div>
     <div class="game-title">ClickBox Game</div>
 
-    <!-- Tree (visual, behind ground) -->
+    <!-- Central Pythagorean Tree (visual SVG; placed BEHIND ground) -->
     <div id="central-tree">
       <!-- SVG injected by tree.js -->
+      <!-- Keep dropdown markup here; tree.js moves it into the trigger -->
       <div class="games-dropdown">
         <div class="dropdown-content" role="menu" aria-label="Games">
           <a href="games/ClickBox/index.html" class="game-option" role="menuitem">
             <span class="game-icon">🎮</span>
-            <span class="game-info"><strong>ClickBox</strong><small>Test your clicking speed</small></span>
+            <span class="game-info">
+              <strong>ClickBox</strong>
+              <small>Test your clicking speed</small>
+            </span>
           </a>
           <a href="games/Puzzle/index.html" class="game-option" role="menuitem">
             <span class="game-icon">🧩</span>
-            <span class="game-info"><strong>Color Puzzle</strong><small>Match the colors</small></span>
+            <span class="game-info">
+              <strong>Color Puzzle</strong>
+              <small>Match the colors</small>
+            </span>
           </a>
           <a href="games/Jump/index.html" class="game-option" role="menuitem">
             <span class="game-icon">🦘</span>
-            <span class="game-info"><strong>Jump Quest</strong><small>Platform adventure</small></span>
+            <span class="game-info">
+              <strong>Jump Quest</strong>
+              <small>Platform adventure</small>
+            </span>
           </a>
           <a href="games/Memory/index.html" class="game-option" role="menuitem">
             <span class="game-icon">🧠</span>
-            <span class="game-info"><strong>Memory Match</strong><small>Find the pairs</small></span>
+            <span class="game-info">
+              <strong>Memory Match</strong>
+              <small>Find the pairs</small>
+            </span>
           </a>
         </div>
       </div>
     </div>
 
-    <!-- UI overlay for trigger + dropdown -->
+    <!-- UI overlay ABOVE the ground for the trigger + dropdown -->
     <div id="tree-ui"></div>
 
-    <main>
-      <!-- keep main for layout spacing if you want, but no centered H1 anymore -->
-    </main>
+    <main></main>
   </body>
 </html>

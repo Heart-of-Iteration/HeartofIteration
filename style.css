@@ -15,10 +15,15 @@ main {
 }
 
 /* ===== Top-left pixel/fractal title ===== */
+:root {
+  --title-x: 42px;
+  --title-y: 42px;
+}
+
 .pixel-title {
   position: fixed !important;
-  top: 42px;
-  left: 42px;
+  top: calc(env(safe-area-inset-top, 0px) + var(--title-y));
+  left: calc(env(safe-area-inset-left, 0px) + var(--title-x));
   margin: 0;
   z-index: 1200;
 
@@ -32,7 +37,6 @@ main {
   border-radius: 8px;
   padding: 8px 10px;
 
-  /* multi-step, fractal-ish, chunky shadow */
   text-shadow:
     0 1px 0 #9ff, 1px 0 0 #9ff, -1px 0 0 #9ff, 0 -1px 0 #9ff,
     2px 2px 0 rgba(0,170,170,0.9),
@@ -68,24 +72,24 @@ main {
 }
 
 @media (max-width: 480px) {
-  .pixel-title {
-    top: 10px;
-    left: 10px;
-    padding: 6px 8px;
-    letter-spacing: 1px;
-  }
+  :root { --title-x: 10px; --title-y: 10px; }
+  .pixel-title { padding: 6px 8px; letter-spacing: 1px; }
 }
 
-/* ===== Flying bird ===== */
+/* ===== Flying bird (always on top) ===== */
 #flying-bird {
   position: fixed;
+  z-index: 2000;         /* above everything */
+  pointer-events: auto;
+  top: 24px;             /* visible default */
+  left: 72px;            /* visible default */
   width: 80px;
   height: 80px;
-  z-index: 1000;
   cursor: pointer;
   transition: transform 0.3s ease;
   filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
 }
+#flying-bird svg { pointer-events: none; }
 #flying-bird:hover {
   filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3));
 }
@@ -104,21 +108,30 @@ main {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s ease;
+  z-index: 1500;
 }
 #flying-bird:hover + .game-title,
 .game-title:hover { opacity: 1; }
 
-/* ===== Central Tree (visual only, BEHIND ground) ===== */
+/* ===== Background canvas (sky + ground) ===== */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 400;          /* ABOVE the tree visuals, BELOW UI */
+  pointer-events: none;  /* never blocks clicks */
+}
+
+/* ===== Central Tree (visual SVG behind ground) ===== */
 #central-tree {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 200;          /* lower than your ground layer */
-  pointer-events: none;  /* tree visuals never intercept clicks */
+  z-index: 200;          /* BELOW ground (bg-canvas) */
+  pointer-events: none;
 }
 
-/* SVG size; keep in sync with #tree-ui at all breakpoints */
+/* SVG size; keep in sync with #tree-ui */
 #tree-svg {
   width: 1000px;
   height: 650px;
@@ -135,25 +148,25 @@ main {
   transform: translate(-50%, -50%);
   width: 1000px;   /* match #tree-svg */
   height: 650px;
-  z-index: 700;    /* must be above the ground layer */
+  z-index: 800;    /* ABOVE ground, BELOW bird/title */
   pointer-events: none; /* only children receive events */
 }
 
 /* Base-square trigger aligned over the first square */
 .games-trigger {
   position: absolute;
-  background: transparent;   /* no enclosing rectangle */
+  background: transparent;
   transition: all 0.3s ease;
   border-radius: 4px;
   cursor: pointer;
-  z-index: 701;
-  pointer-events: auto;      /* clickable */
+  z-index: 801;
+  pointer-events: auto;
 }
 
 /* Dropdown anchored to the trigger */
 .games-dropdown {
   position: absolute;
-  top: calc(100% + 10px);    /* below the base square; use bottom:* to pop above */
+  top: calc(100% + 10px);
   left: 50%;
   transform: translateX(-50%) scale(0.95);
   opacity: 0;
@@ -161,10 +174,10 @@ main {
   transition: all 0.3s ease;
   min-width: 280px;
   pointer-events: auto;
-  z-index: 702;
+  z-index: 802;
 }
 
-/* Show dropdown on hover (desktop) or when toggled open (mobile/keyboard) */
+/* Show dropdown on hover (desktop) or when toggled (mobile/keyboard) */
 .games-trigger.is-hover .games-dropdown,
 .games-trigger.open .games-dropdown {
   opacity: 1;
@@ -193,20 +206,12 @@ main {
   margin-bottom: 0.5rem;
 }
 .game-option:last-child { margin-bottom: 0; }
-.game-option:hover {
-  background: rgba(74, 144, 226, 0.1);
-  transform: translateX(4px);
-}
+.game-option:hover { background: rgba(74, 144, 226, 0.1); transform: translateX(4px); }
 
-.game-icon {
-  font-size: 1.5rem;
-  margin-right: 1rem;
-  width: 40px;
-  text-align: center;
-}
+.game-icon { font-size: 1.5rem; margin-right: 1rem; width: 40px; text-align: center; }
 .game-info { display: flex; flex-direction: column; text-align: left; }
 .game-info strong { font-size: 1rem; margin-bottom: 0.2rem; }
-.game-info small { color: #666; font-size: 0.85rem; }
+.game-info small  { color: #666; font-size: 0.85rem; }
 
 /* ===== Accessibility ===== */
 .games-trigger:focus,
